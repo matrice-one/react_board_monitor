@@ -1,0 +1,23 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-title {
+  /* Customize the title's appearance, if needed */
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.dashboard-filters {
+  width: 20%;
+  /* Add other styles for the filters container, if needed */
+}
+
+.dashboard-graph {
+  width: 80%;
+  /* Add other styles for the D3 graph container, if needed */
+}
