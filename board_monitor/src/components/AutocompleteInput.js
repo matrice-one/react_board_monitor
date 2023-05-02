@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import debounce from 'lodash.debounce';
+import './AutocompleteInput.css';
+
 
 const Autocomplete = () => {
   const [inputValue, setInputValue] = useState('');
@@ -33,7 +35,7 @@ const Autocomplete = () => {
   };
 
   return (
-    <div>
+<div className="autocomplete-input">
       <input
         type="text"
         value={inputValue}
@@ -41,9 +43,9 @@ const Autocomplete = () => {
         placeholder="Start typing..."
       />
       {suggestions.length > 0 && (
-        <ul>
+        <ul className="autocomplete-input-suggestions">
           {suggestions.map((suggestion, index) => (
-            <li key={index} onClick={() => handleSuggestionClick(suggestion.name)}>
+            <li key={suggestion.id} onClick={() => handleSuggestionClick(suggestion.name)}>
               {suggestion.name}
             </li>
           ))}
