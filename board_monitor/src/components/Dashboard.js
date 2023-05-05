@@ -1,20 +1,44 @@
-import React from 'react';
 import './Dashboard.css';
-import Autocomplete from './AutocompleteInput';
+import AutocompleteInput from './AutocompleteInput';
+import React, { useState } from 'react';
+import NetworkGraph from './NetworkGraph';
+
+
 
 const Dashboard = () => {
+  const [data, setData] = useState(null);
+
+  const fetchGraphData = async (query) => {
+    const response = await fetch(`http://127.0.0.1:8000/api/network-data/?search_term=${query}`);
+    const json = await response.json();
+    setData(json);
+  };
+
+  const onLaunchGraph = (query) => {
+    if (data) {
+      // Clear the data state if it already has a value
+      setData(null);
+    }
+    fetchGraphData(query);
+  };
+
   return (
     <div className="dashboard">
-      <div className="dashboard-content">
-        <div className="dashboard-filters">
-          <Autocomplete />
-          {/* Add other components here */}
+    <div className="dashboard-content">
+      <div className="dashboard-filters">
+        <div className="autocomplete-container">
+          <AutocompleteInput onLaunchGraph={onLaunchGraph} />
         </div>
-        <div className="dashboard-graph">
-          {/* Add your D3 graph component here */}
+        <div className="network-container">
+          {data ? (
+            <NetworkGraph data={data} />
+          ) : (
+            <p>No data to display.</p>
+          )}
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

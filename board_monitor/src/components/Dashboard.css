@@ -1,23 +1,26 @@
 .dashboard {
+  height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.dashboard-title {
-  /* Customize the title's appearance, if needed */
 }
 
 .dashboard-content {
   display: flex;
   flex-direction: row;
+  height: 100%;
 }
 
 .dashboard-filters {
-  width: 20%;
-  /* Add other styles for the filters container, if needed */
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
 }
 
-.dashboard-graph {
+.autocomplete-container {
+  width: 20%;
+}
+
+.network-container {
   width: 80%;
-  /* Add other styles for the D3 graph container, if needed */
 }

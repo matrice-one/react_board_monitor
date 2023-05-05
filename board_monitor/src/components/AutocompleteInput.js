@@ -3,12 +3,12 @@ import debounce from 'lodash.debounce';
 import './AutocompleteInput.css';
 
 
-const Autocomplete = () => {
+const AutocompleteInput = ({ onLaunchGraph }) => {
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
   const fetchSuggestions = async (query) => {
-    const response = await fetch(`http://127.0.0.1:8000/api/api/network-data/?search_term=${query}}`);
+    const response = await fetch(`http://127.0.0.1:8000/api/companies/?query=${query}`);
     const data = await response.json();
     console.log(data);
     setSuggestions(data);
@@ -34,6 +34,10 @@ const Autocomplete = () => {
     console.log('Suggestion clicked:', suggestion);
   };
 
+  const handleLaunchGraph = () => {
+    onLaunchGraph(inputValue);
+  };
+
   return (
 <div className="autocomplete-input">
       <input
@@ -42,6 +46,8 @@ const Autocomplete = () => {
         onChange={handleChange}
         placeholder="Start typing..."
       />
+      <button onClick={handleLaunchGraph}>Launch Graph</button>
+
       {suggestions.length > 0 && (
         <ul className="autocomplete-input-suggestions">
           {suggestions.map((suggestion, index) => (
@@ -51,8 +57,8 @@ const Autocomplete = () => {
           ))}
         </ul>
       )}
-    </div>
+  </div>
   );
 };
 
-export default Autocomplete;
+export default AutocompleteInput;

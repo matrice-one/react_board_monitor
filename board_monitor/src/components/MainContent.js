@@ -4,12 +4,11 @@ import { Link } from 'react-router-dom';
 const MainContent = () => {
   return (
   <section>
-
-  Welcome
+       Welcome
       <Link to="/dashboard">
         <button>Go to dashboard</button>
       </Link>
-       </section>
+    </section>
   )
 }
 
