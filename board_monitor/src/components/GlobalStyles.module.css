@@ -1,0 +1,37 @@
+:root {
+    --primary-color: white;
+    --secondary-color: #D5364B;
+    --third-color: #191A23;
+    --default-font: 'Space Grotesk', sans-serif;
+    --default-font-size: 16px;
+    --default-font-weight: 400;
+    --font-size-h1: 2em;
+    --font-size-h2: 1.5em;
+    --font-size-h3: 1.17em;
+    --font-size-h4: 1em;
+    --font-size-body: 0.875em;
+}
+
+body, h1, h2, h3, h4 {
+    font-family: var(--default-font);
+}
+
+h1 {
+    font-size: var(--font-size-h1);
+}
+
+h2 {
+    font-size: var(--font-size-h2);
+}
+
+h3 {
+    font-size: var(--font-size-h3);
+}
+
+h4 {
+    font-size: var(--font-size-h4);
+}
+
+.mainContainer {
+    padding: 0 5em;
+}
