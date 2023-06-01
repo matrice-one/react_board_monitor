@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, handleSearch} from 'react';
 import { Typography, Button, Grid, Container, CardMedia, Box } from '@mui/material';
 import DrawerAppBar from './Header';
 import SearchBar from './StyledSearchBar'
@@ -9,9 +9,19 @@ import RangeSlider from './FilterSlider';
 import NetworkGraph from './NetworkGraph';
 
 function StyledDashboard () {
-    const handleSearch = (searchQuery) => {
-        NetworkGraph.fetchAndRenderGraph(searchQuery); // Call the function that fetches data and renders a graph
-      };
+    const [data, setData] = useState(null);
+  
+    const fetchData = async (searchQuery) => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/network-data/?search_term=${searchQuery}`);
+        
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      }
+    };
+  
     
     return(
         <div>
@@ -24,22 +34,19 @@ function StyledDashboard () {
         </Box>
 
         <Container>
-            <Box sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: 1,
-                    width: { sm: '60%' },
-                    margin: { xs: 0, sm: '0 auto' } 
-                }}>
-                <SearchBar inputMessage="Search for items..." buttonMessage="Start Search" onSearch={handleSearch}/>
-            </Box>
-        </Container>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { sm: '60%' }, margin: { xs: 0, sm: '0 auto' } }}>
+          <SearchBar inputMessage="Search for items..." buttonMessage="Start Search" onSearch={fetchData} />
+        </Box>
+      </Container>
 
         <Container maxWidth="xl">
             <Grid container spacing={2}>
             <Grid item xs={12} lg={9}>
-                <StyledContainer title="Interactive visualizer" bgColor="tertiary.main" textColor="primary.main">
-                    <NetworkGraph />
+                <StyledContainer title="Interactive visualizer" bgColor="tertiary.main" textColor="primary.main" height="500px">
+                
+                    {data !== null && <NetworkGraph data={data} />}
+                    
+                
                 </StyledContainer>
             </Grid>
             <Grid item xs={12} lg={3}>

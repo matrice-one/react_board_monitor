@@ -1,26 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { drag } from "d3-drag";
 
-
-const NetworkGraph = () => {
+const NetworkGraph = ({ data }) => {
   const ref = useRef(null);
-  const [data, setData] = useState(null);
-
-  const fetchData = async (searchQuery) => {
-    try {
-      const response = await fetch(`http://127.0.0.1:8000/api/companies/?query=${searchQuery}`);
-      const data = await response.json();
-      setData(data);
-    } catch (error) {
-      console.error('Failed to fetch data:', error);
-    }
-  };
 
   useEffect(() => {
     if (data === null) {
       return;
     }
+
+
     const container = d3.select(ref.current);
     const width = container.node().clientWidth;
     const height = container.node().clientHeight;
@@ -133,9 +122,8 @@ const NetworkGraph = () => {
     // .call(wrap, 100);
   }, [data]);
 
-  NetworkGraph.fetchData = fetchData;
   
-  return <svg ref={ref} />;
+  return  <svg ref={ref} style={{ width: '100%', height: '100%' }} />;
 };
 
 export default NetworkGraph;

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, InputAdornment, IconButton, Tooltip,  Box, Button, OutlinedInput} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import NetworkGraph from './NetworkGraph';
 
 const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
     const [search, setSearch] = useState('');
@@ -12,7 +11,6 @@ const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
   
     const handleClick = () => {
       onSearch(search); // Pass the current search string back to the parent component
-      NetworkGraph.fetchData(search);
     };
 
   return (
@@ -27,11 +25,7 @@ const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
         endAdornment: (
           <InputAdornment position="end">
             <Tooltip title={buttonMessage}>
-              {/* <IconButton color="secondary">
-                <SearchIcon />
-              </IconButton> */}
-            <Button variant="contained" color="primary" onClick={handleClick}>{buttonMessage}</Button>
-
+              <Button variant="contained" color="primary" onClick={handleClick}>{buttonMessage}</Button>
             </Tooltip>
           </InputAdornment>
         ),
