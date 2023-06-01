@@ -2,7 +2,7 @@ import { AppBar, Toolbar, Container,Typography, IconButton, Button, useMediaQuer
 import MenuIcon from '@mui/icons-material/Menu';
 import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import LogoBlack from '../media/images/logo-small.png';  // Replace this path with the actual path to your image
+import LogoBlack from '../media/images/logo.png';  // Replace this path with the actual path to your image
 
 
 export default function NavBar() {
@@ -20,59 +20,57 @@ export default function NavBar() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'secondary.main' }}>
-        <Container maxWidth="xl">
-
-       
-    <Toolbar >
-        <Box display="flex" alignItems="flex-start">
-        <CardMedia
-                component="img"
-                image={LogoBlack}
-                height="20%"
-                alt="Banner Image"
-                sx={{ objectFit: 'contain' }}
-              />{/* replace with your actual logo */}
-          <Typography variant="h6" component="div">
-            Board Visualizer Tool
-          </Typography>
-        </Box>
-        <Box sx={{ flexGrow: 1 }} /> 
-        {isMobile ? (
-          <>
-            <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleDrawerOpen}>
-              <MenuIcon />
-            </IconButton>
-            <Drawer anchor='right' open={drawerOpen} onClose={handleDrawerClose}>
-              <Box
-                sx={{ width: 250 }}
-                role="presentation"
-                onClick={handleDrawerClose}
-                onKeyDown={handleDrawerClose}
-              >
-                <List>
-                  <ListItem button>
-                    <ListItemText primary="Item 1" />
-                  </ListItem>
-                  <ListItem button>
-                    <ListItemText primary="Item 2" />
-                  </ListItem>
-                  {/* Add as many ListItems as you need */}
-                </List>
-              </Box>
-            </Drawer>
-          </>
-        ) : (
-          <>
-            <Button color="inherit">About us</Button>
-            <Button color="inherit">Services</Button>
-            <Button color="inherit">Usecases</Button>
-            <Button color="inherit">Blog</Button>
-            {/* Add as many Buttons as you need */}
-          </>
-        )}
-      </Toolbar>
-      </Container>
+    <AppBar position="static" sx={{ backgroundColor: 'secondary.main',  px: 7 }}>
+        {/* <Container maxWidth="xl"> */}
+            <Toolbar>
+                <Box display="flex" alignItems="flex-start" sx={{ width: '100px' /* adjust this */ }}>
+                <CardMedia
+                        component="img"
+                        image={LogoBlack}
+                        height="auto"
+                        alt="Banner Image"
+                        sx={{ objectFit: 'contain' }}
+                    />{/* replace with your actual logo */}
+                <Typography variant="h6" component="div">
+                    Board Visualizer Tool
+                </Typography>
+                </Box>
+                <Box sx={{ flexGrow: 1 }} /> 
+                {isMobile ? (
+                <>
+                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleDrawerOpen}>
+                    <MenuIcon />
+                    </IconButton>
+                    <Drawer anchor='right' open={drawerOpen} onClose={handleDrawerClose}>
+                    <Box
+                        sx={{ width: 250 }}
+                        role="presentation"
+                        onClick={handleDrawerClose}
+                        onKeyDown={handleDrawerClose}
+                    >
+                        <List>
+                        <ListItem button>
+                            <ListItemText primary="Item 1" />
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemText primary="Item 2" />
+                        </ListItem>
+                        {/* Add as many ListItems as you need */}
+                        </List>
+                    </Box>
+                    </Drawer>
+                </>
+                ) : (
+                <>
+                    <Button color="inherit">About us</Button>
+                    <Button color="inherit">Services</Button>
+                    <Button color="inherit">Usecases</Button>
+                    <Button color="inherit">Blog</Button>
+                    {/* Add as many Buttons as you need */}
+                </>
+                )}
+            </Toolbar>
+        {/* </Container> */}
     </AppBar>
   );
         }

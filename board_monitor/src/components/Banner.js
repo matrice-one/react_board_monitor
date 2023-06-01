@@ -1,13 +1,12 @@
 import React from 'react';
 import { Typography, Button, Grid, Container, CardMedia, Box } from '@mui/material';
 import BannerImage from '../media/images/landing-banner-image.png';  // Replace this path with the actual path to your image
-import { Link } from 'react-router-dom';
 
 function Banner() {
     return (
 
     <Box pt={2}>
-      <Container maxWidth="xl">
+      {/* <Container maxWidth="xl"> */}
         <Grid container spacing={2}>
           <Grid item md={6}>
             <Box display="flex" flexDirection="column" justifyContent="center" alignItems="flex-start" height="100%">
@@ -21,7 +20,7 @@ function Banner() {
               Leverage our powerful network analysis tool to gain valuable insights, identify patterns, and make data-driven business decisions.
               </Typography>
               </Box>
-              <Button component={Link} to="/dashboard" variant="contained" color="secondary" size="large">
+              <Button to="/dashboard" variant="contained" color="secondary" size="large">
                 Search a company
               </Button>
             </Box>
@@ -38,7 +37,7 @@ function Banner() {
             </Box>
           </Grid>
         </Grid>
-      </Container>
+      {/* </Container> */}
     </Box>
     );
   }

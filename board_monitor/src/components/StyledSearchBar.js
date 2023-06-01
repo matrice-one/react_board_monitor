@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useState } from 'react';
 import { TextField, InputAdornment, IconButton, Tooltip,  Box, Button, OutlinedInput} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import NetworkGraph from './NetworkGraph';
 
-const SearchBar = ({ inputMessage, buttonMessage }) => {
+const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
+    const [search, setSearch] = useState('');
+
+    const handleChange = (event) => {
+      setSearch(event.target.value);
+    };
+  
+    const handleClick = () => {
+      onSearch(search); // Pass the current search string back to the parent component
+      NetworkGraph.fetchData(search);
+    };
+
   return (
     <TextField
+        value={search} 
+        onChange={handleChange}
+        label={inputMessage}
       placeholder={inputMessage}
       fullWidth
       variant="outlined"
@@ -12,9 +27,11 @@ const SearchBar = ({ inputMessage, buttonMessage }) => {
         endAdornment: (
           <InputAdornment position="end">
             <Tooltip title={buttonMessage}>
-              <IconButton color="secondary">
+              {/* <IconButton color="secondary">
                 <SearchIcon />
-              </IconButton>
+              </IconButton> */}
+            <Button variant="contained" color="primary" onClick={handleClick}>{buttonMessage}</Button>
+
             </Tooltip>
           </InputAdornment>
         ),

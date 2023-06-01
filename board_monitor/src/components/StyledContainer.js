@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import SectionTitle from "./SectionTitle";
 
-const StyledContainer = ({ title, bgColor, children, textColor}) => {
+const StyledContainer = ({ title, bgColor, children, textColor, boxBackgroundColor}) => {
   return (
-    <Box display="flex" flexDirection="column" justifyContent="center" alignItems="flex-start" height="100%"
+    <Box display="flex" flexDirection="column" justifyContent="flex-start" alignItems="flex-start" height="100%" 
       sx={{
-        backgroundColor: 'primary.main',
+        backgroundColor: boxBackgroundColor,
         borderRadius: '1em',
         boxShadow: 1,
         p: 2,
@@ -14,7 +14,10 @@ const StyledContainer = ({ title, bgColor, children, textColor}) => {
       }}
     >
       <SectionTitle title={title} bgColor={bgColor} textColor={textColor}/>
+      <Box sx={{ mt: 3 }}>
       {children}
+      </Box>
+      
     </Box>
   );
 };
