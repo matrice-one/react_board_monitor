@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import debounce from 'lodash.debounce';
-import './AutocompleteInput.css';
-
+import React, { useState, useEffect } from "react";
+import debounce from "lodash.debounce";
+import "./AutocompleteInput.css";
 
 const AutocompleteInput = ({ onLaunchGraph }) => {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
   const fetchSuggestions = async (query) => {
-    const response = await fetch(`http://127.0.0.1:8000/api/companies/?query=${query}`);
+    const response = await fetch(
+      `http://127.0.0.1:8000/api/companies/?query=${query}`
+    );
     const data = await response.json();
     console.log(data);
     setSuggestions(data);
@@ -31,7 +32,7 @@ const AutocompleteInput = ({ onLaunchGraph }) => {
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
     setSuggestions([]);
-    console.log('Suggestion clicked:', suggestion);
+    console.log("Suggestion clicked:", suggestion);
   };
 
   const handleLaunchGraph = () => {
@@ -39,7 +40,7 @@ const AutocompleteInput = ({ onLaunchGraph }) => {
   };
 
   return (
-<div className="autocomplete-input">
+    <div className="autocomplete-input">
       <input
         type="text"
         value={inputValue}
@@ -51,13 +52,16 @@ const AutocompleteInput = ({ onLaunchGraph }) => {
       {suggestions.length > 0 && (
         <ul className="autocomplete-input-suggestions">
           {suggestions.map((suggestion, index) => (
-            <li key={suggestion.id} onClick={() => handleSuggestionClick(suggestion.name)}>
+            <li
+              key={suggestion.id}
+              onClick={() => handleSuggestionClick(suggestion.name)}
+            >
               {suggestion.name}
             </li>
           ))}
         </ul>
       )}
-  </div>
+    </div>
   );
 };
 
