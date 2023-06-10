@@ -1,0 +1,17 @@
+.root {
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+  }
+
+.frame {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    padding-left: 10%;
+    padding-right: 10%;
+
+}
