@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import NavBar from './Header';
 import Banner from './Banner'
 import SectionTitle from './SectionTitle';
-import { Typography, Button, Grid, Container, CardMedia, Box } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import StyledContainer from './StyledContainer';
 
 const MainContent = () => {
