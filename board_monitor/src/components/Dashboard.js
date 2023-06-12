@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   const fetchGraphData = async (query) => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/network-data/?search_term=${query}`
+      `http://board-visualizer/api/network-data/?search_term=${query}`
     );
     const json = await response.json();
     setData(json);

@@ -8,7 +8,7 @@ const AutocompleteInput = ({ onLaunchGraph }) => {
 
   const fetchSuggestions = async (query) => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/companies/?query=${query}`
+      `http://board-visualizer/api/companies/?query=${query}`
     );
     const data = await response.json();
     console.log(data);
