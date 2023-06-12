@@ -13,8 +13,7 @@ function StyledDashboard () {
   
     const fetchData = async (searchQuery) => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/network-data/?search_term=${searchQuery}`);
-        
+        const response = await fetch(`http://board-visualizer.ch/api/network-data/?search_term=${searchQuery}`);        
         const data = await response.json();
         setData(data);
       } catch (error) {

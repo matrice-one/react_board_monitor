@@ -3,7 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import LogoBlack from '../media/images/logo.png';  // Replace this path with the actual path to your image
-
+import { Link } from 'react-router-dom';
 
 export default function NavBar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -23,6 +23,7 @@ export default function NavBar() {
     <AppBar position="static" sx={{ backgroundColor: 'secondary.main',  px: 7 }}>
         {/* <Container maxWidth="xl"> */}
             <Toolbar>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Box display="flex" alignItems="flex-start" sx={{ width: '100px' /* adjust this */ }}>
                 <CardMedia
                         component="img"
@@ -35,6 +36,7 @@ export default function NavBar() {
                     Board Visualizer Tool
                 </Typography>
                 </Box>
+            </Link>
                 <Box sx={{ flexGrow: 1 }} /> 
                 {isMobile ? (
                 <>
@@ -62,10 +64,10 @@ export default function NavBar() {
                 </>
                 ) : (
                 <>
-                    <Button color="inherit">About us</Button>
+                    {/* <Button color="inherit">About us</Button>
                     <Button color="inherit">Services</Button>
                     <Button color="inherit">Usecases</Button>
-                    <Button color="inherit">Blog</Button>
+                    <Button color="inherit">Blog</Button> */}
                     {/* Add as many Buttons as you need */}
                 </>
                 )}
