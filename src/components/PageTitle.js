@@ -1,6 +1,5 @@
 import React from "react";
 import  styles from  "./PageTitle.module.css"
-import baseStyles from "./CommonStyles.module.css"
 
 const PageTile = ({ title}) => {
     return (

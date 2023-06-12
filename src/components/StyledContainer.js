@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import SectionTitle from "./SectionTitle";
 
 const StyledContainer = ({ title, bgColor, children, textColor, boxBackgroundColor, height}) => {

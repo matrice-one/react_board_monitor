@@ -4,7 +4,6 @@ import StyledDashboard from './components/StyledDashboard';
 import PageDash from './components/PageDash';
 
 import './App.css';
-import Header from './components/Header';
 import MainContent from './components/MainContent';
 // index.js or App.js
 
