@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Button, Grid, Container, CardMedia, Box } from '@mui/material';
+import { Typography, Button, Grid, CardMedia, Box } from '@mui/material';
 import BannerImage from '../media/images/landing-banner-image.png';  // Replace this path with the actual path to your image
 import { Link } from 'react-router-dom';
 
