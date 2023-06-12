@@ -1,39 +1,67 @@
-import React, { useState } from 'react';
-import { TextField, InputAdornment, Tooltip, Button} from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { TextField, InputAdornment, Button, Box } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
+import debounce from 'lodash.debounce';
 
 const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
-    const [search, setSearch] = useState('');
+  const [search, setSearch] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
 
-    const handleChange = (event) => {
-      setSearch(event.target.value);
-    };
-  
-    const handleClick = () => {
-      onSearch(search); // Pass the current search string back to the parent component
-    };
+  const fetchSuggestions = async (query) => {
+    const response = await fetch(`http://127.0.0.1:8000/api/companies/?query=${query}`);
+    const data = await response.json();
+    setSuggestions(data);
+  };
+
+  const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
+
+  useEffect(() => {
+    if (search) {
+      debouncedFetchSuggestions(search);
+    } else {
+      setSuggestions([]);
+    }
+  }, [search]);
+
+  const handleInputChange = (event, value, reason) => {
+    if (reason === 'input') {
+      setSearch(value);
+    }
+  };
+
+  const handleSearch = () => {
+    onSearch(search);
+  };
 
   return (
-    <TextField
-        value={search} 
-        onChange={handleChange}
-        label={inputMessage}
-      placeholder={inputMessage}
-      fullWidth
-      variant="outlined"
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <Tooltip title={buttonMessage}>
-              <Button variant="contained" color="primary" onClick={handleClick}>{buttonMessage}</Button>
-            </Tooltip>
-          </InputAdornment>
-        ),
-        style: {
-          borderRadius: 50, // rounded corners
-          borderColor: 'secondary.main', // stroke color
-        }
-      }}
-    />
+    <Box width="80%" mx="auto" mt={2}>
+      <Autocomplete
+        freeSolo
+        options={suggestions.map((option) => option.name)}
+        renderInput={(params) => (
+          <TextField 
+            {...params} 
+            label={inputMessage} 
+            variant="outlined" 
+            fullWidth
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <>
+                  {params.InputProps.endAdornment}
+                  <InputAdornment position="end">
+                    <Button variant="contained" color="secondary" onClick={handleSearch}>
+                      {buttonMessage}
+                    </Button>
+                  </InputAdornment>
+                </>
+              ),
+            }}
+          />
+        )}
+        onInputChange={handleInputChange}
+      />
+    </Box>
   );
 };
 
