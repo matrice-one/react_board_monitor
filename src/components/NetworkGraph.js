@@ -5,7 +5,7 @@ const NetworkGraph = ({ data }) => {
   const ref = useRef(null);
 
   useEffect(() => {
-    if (data === null) {
+    if (data === null || !Array.isArray(data.links) || !Array.isArray(data.nodes)) {
       return;
     }
 

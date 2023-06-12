@@ -5,6 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import LogoBlack from '../media/images/logo.png';  // Replace this path with the actual path to your image
 import { Link } from 'react-router-dom';
 
+
 export default function NavBar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   
@@ -21,17 +22,16 @@ export default function NavBar() {
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'secondary.main',  px: 7 }}>
-        {/* <Container maxWidth="xl"> */}
             <Toolbar>
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Box display="flex" alignItems="flex-start" sx={{ width: '100px' /* adjust this */ }}>
+                <Box display="flex" alignItems="flex-start" sx={{ width: '100px'}}>
                 <CardMedia
                         component="img"
                         image={LogoBlack}
                         height="auto"
                         alt="Banner Image"
                         sx={{ objectFit: 'contain' }}
-                    />{/* replace with your actual logo */}
+                    />
                 <Typography variant="h6" component="div">
                     Board Visualizer Tool
                 </Typography>
