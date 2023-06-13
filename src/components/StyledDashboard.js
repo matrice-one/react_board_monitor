@@ -21,6 +21,14 @@ function StyledDashboard () {
         console.error('Failed to fetch data:', error);
       }
     };
+
+    const onLaunchGraph = (query) => {
+      if (data) {
+        // Clear the data state if it already has a value
+        setData(null);
+      }
+      fetchData(query);
+    };
   
     
     return(
@@ -35,7 +43,7 @@ function StyledDashboard () {
 
         <Container>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { sm: '60%' }, margin: { xs: 0, sm: '0 auto' } }}>
-          <SearchBar inputMessage="Search for items..." buttonMessage="Start Search" onSearch={fetchData} />
+          <SearchBar inputMessage="Search for items..." buttonMessage="Start Search" onSearch={onLaunchGraph} />
         </Box>
       </Container>
 
