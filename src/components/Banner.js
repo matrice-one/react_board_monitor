@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Button, Grid, CardMedia, Box } from '@mui/material';
 import BannerImage from '../media/images/landing-banner-image.png';  // Replace this path with the actual path to your image
+import { Link } from 'react-router-dom';
 
 function Banner() {
     return (
@@ -20,7 +21,7 @@ function Banner() {
               Leverage our powerful network analysis tool to gain valuable insights, identify patterns, and make data-driven business decisions.
               </Typography>
               </Box>
-              <Button to="/dashboard" variant="contained" color="secondary" size="large">
+              <Button component={Link} to="/dashboard" variant="contained" color="secondary" size="large">
                 Search a company
               </Button>
             </Box>
