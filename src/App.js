@@ -22,6 +22,9 @@ const theme = createTheme({
     tertiary: {
       main: '#191A23',
     },
+    accent: {
+      main: 'rgb(30, 236, 76)'
+    }
   },
   typography: {
     fontFamily: "'Space Grotesk', sans-serif",

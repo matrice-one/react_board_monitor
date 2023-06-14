@@ -1,5 +1,5 @@
-import React,{useState, handleSearch} from 'react';
-import { Typography, Button, Grid, Container, CardMedia, Box } from '@mui/material';
+import React,{useState,} from 'react';
+import { Typography, Grid, Container, Box } from '@mui/material';
 import DrawerAppBar from './Header';
 import SearchBar from './StyledSearchBar'
 import StyledContainer from './StyledContainer';

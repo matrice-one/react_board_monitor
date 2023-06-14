@@ -106,7 +106,7 @@ const NetworkGraph = ({ data, searchTerm }) => {
       .attr("fill", node => {
         console.log(node.label, searchTerm, node.label.toLowerCase() === searchTerm.toLowerCase())
         if (node.label.toLowerCase() === searchTerm.toLowerCase()) {
-          return 'blue';  // searched node color
+          return theme.palette.accent.main;  // searched node color
         } else {
           return node.type === 'company' ? theme.palette.secondary.main : theme.palette.tertiary.main;  // company nodes are red, individual nodes are black
         }
@@ -130,7 +130,7 @@ const NetworkGraph = ({ data, searchTerm }) => {
       .attr("alignment-baseline", "middle")
       .attr("fill", "black");
     // .call(wrap, 100);
-  }, [data]);
+  }, [data, searchTerm, theme.palette.secondary.main, theme.palette.tertiary.main]);
 
   
   return  <svg ref={ref} style={{ width: '100%', height: '100%' }} />;

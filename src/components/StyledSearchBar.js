@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { TextField, InputAdornment, Button, Box } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import debounce from 'lodash.debounce';
+import { useTheme } from '@mui/material/styles';
+
 
 const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
   const [search, setSearch] = useState('');
@@ -12,7 +14,7 @@ const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
     const response = await fetch(`http://board-visualizer.ch/api/companies/?query=${query}`);
     const data = await response.json();
     setSuggestions(data);
-  }, []);
+  }, [setSuggestions]);
 
   const debouncedFetchSuggestions = useCallback(debounce(fetchSuggestions, 300), [fetchSuggestions]);
 
