@@ -20,30 +20,27 @@ const NetworkGraph = ({ data, searchTerm }) => {
     const links = data.links.map((d) => Object.create(d));
     const nodes = data.nodes.map((d) => Object.create(d));
 
+    function forceContainment() {
+      for (let node of nodes) {
+        node.x = Math.max(30, Math.min(width - 30, node.x)); // 30 here should be at least the radius of your nodes
+        node.y = Math.max(30, Math.min(height - 30, node.y));
+      }
+    }
+
+    
     const tooltip = d3
       .select("body")
       .append("div")
       .attr("class", "tooltip")
       .style("opacity", 0);
 
-    const simulation = d3
+      const simulation = d3
       .forceSimulation(nodes)
-      .force(
-        "link",
-        d3
-          .forceLink(links)
-          .id((d) => d.id)
-          .distance(100)
-      )
-      .force(
-        "charge",
-        d3
-          .forceManyBody(-10000)
-          .strength(-50)
-          .distanceMax(0.5 * Math.min(width, height))
-      )
-      .force("center", d3.forceCenter(width / 2, height / 2));
-
+      .force("link", d3.forceLink(links).id((d) => d.id).distance(100))
+      .force("charge", d3.forceManyBody().strength(-500))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("radial", d3.forceRadial((d) => (d.type === 'company' ? 50 : 200), width / 2, height / 2))
+      .force("containment", forceContainment);
     const drag = (simulation) => {
       function dragstarted(event) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
@@ -126,8 +123,8 @@ const NetworkGraph = ({ data, searchTerm }) => {
     node
       .append("text")
       .text((d) => d.label)
-      .attr("text-anchor", "middle")
-      .attr("alignment-baseline", "middle")
+      .attr("text-anchor", "top")
+      .attr("alignment-baseline", "top")
       .attr("fill", "black");
     // .call(wrap, 100);
   }, [data, searchTerm, theme.palette.secondary.main, theme.palette.tertiary.main, theme.palette.accent.main]);
