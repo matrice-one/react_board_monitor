@@ -100,7 +100,8 @@ const NetworkGraph = ({ data, searchTerm }) => {
       .join("g")
       .call(drag(simulation));
 
-    node.append("circle")
+    node
+      .append("circle")
       .attr("r", (d) => 22)
       .attr("fill", node => {
         console.log(node.label, searchTerm, node.label.toLowerCase() === searchTerm.toLowerCase())
@@ -109,7 +110,7 @@ const NetworkGraph = ({ data, searchTerm }) => {
         } else {
           return node.type === 'company' ? theme.palette.secondary.main : theme.palette.tertiary.main;  // company nodes are red, individual nodes are black
         }
-      })      .call(drag(simulation))
+      }).call(drag(simulation))
       .on("mouseover", (event, d) => {
         tooltip.style("opacity", 1);
         tooltip.html(d.label);
