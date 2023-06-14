@@ -23,7 +23,6 @@ export default function NavBar() {
     <AppBar position="static" sx={{ backgroundColor: 'secondary.main',  px: 7 }}>
             <Toolbar>
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-
                 <Box display="flex" alignItems="flex-start" sx={{ width: '100px'}}>
                 <CardMedia
                         component="img"
