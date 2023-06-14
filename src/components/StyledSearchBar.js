@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { TextField, InputAdornment, Button, Box } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import debounce from 'lodash.debounce';
-import { useTheme } from '@mui/material/styles';
 
 
 const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
@@ -10,21 +9,21 @@ const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
   const [selectedItem, setSelectedItem] = useState(''); // New state to store selected item
   const [suggestions, setSuggestions] = useState([]);
 
-  const fetchSuggestions = useCallback(async (query) => {
+  const fetchSuggestions = async (query) => {
     const response = await fetch(`http://board-visualizer.ch/api/companies/?query=${query}`);
     const data = await response.json();
     setSuggestions(data);
-  }, [setSuggestions]);
-
-  const debouncedFetchSuggestions = useCallback(debounce(fetchSuggestions, 300), [fetchSuggestions]);
-
+  };
+  
+  const debouncedFetchSuggestions = useRef(debounce(fetchSuggestions, 300));
+  
   useEffect(() => {
     if (search) {
-      debouncedFetchSuggestions(search);
+      debouncedFetchSuggestions.current(search);
     } else {
       setSuggestions([]);
     }
-  }, [search, debouncedFetchSuggestions]);
+  }, [search]);
 
   const handleInputChange = (event, value, reason) => {
     if (reason === 'input') {

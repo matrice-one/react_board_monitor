@@ -100,8 +100,7 @@ const NetworkGraph = ({ data, searchTerm }) => {
       .join("g")
       .call(drag(simulation));
 
-    node
-      .append("circle")
+    node.append("circle")
       .attr("r", (d) => 22)
       .attr("fill", node => {
         console.log(node.label, searchTerm, node.label.toLowerCase() === searchTerm.toLowerCase())
@@ -130,7 +129,7 @@ const NetworkGraph = ({ data, searchTerm }) => {
       .attr("alignment-baseline", "middle")
       .attr("fill", "black");
     // .call(wrap, 100);
-  }, [data, searchTerm, theme.palette.secondary.main, theme.palette.tertiary.main]);
+  }, [data, searchTerm, theme.palette.secondary.main, theme.palette.tertiary.main, theme.palette.accent.main]);
 
   
   return  <svg ref={ref} style={{ width: '100%', height: '100%' }} />;
