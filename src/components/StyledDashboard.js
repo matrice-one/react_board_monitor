@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import { Typography, Grid, Container, Box } from '@mui/material';
+import React,{useState, handleSearch} from 'react';
+import { Typography, Button, Grid, Container, CardMedia, Box } from '@mui/material';
 import DrawerAppBar from './Header';
 import SearchBar from './StyledSearchBar'
 import StyledContainer from './StyledContainer';
@@ -10,10 +10,13 @@ import NetworkGraph from './NetworkGraph';
 
 function StyledDashboard () {
     const [data, setData] = useState(null);
+    const [searchTerm, setSearchTerm] = useState(null); // New state for the search term
+
   
     const fetchData = async (searchQuery) => {
       try {
-        const response = await fetch(`http://board-visualizer.ch/api/network-data/?search_term=${searchQuery}`);        
+        const response = await fetch(`http://127.0.0.1:8000/api/network-data/?search_term=${searchQuery}`);
+        
         const data = await response.json();
         setData(data);
       } catch (error) {
@@ -22,6 +25,8 @@ function StyledDashboard () {
     };
 
     const onLaunchGraph = (query) => {
+      setSearchTerm(query); // Set the search term state
+
       if (data) {
         // Clear the data state if it already has a value
         setData(null);
@@ -51,7 +56,7 @@ function StyledDashboard () {
             <Grid item xs={12} lg={9}>
                 <StyledContainer title="Interactive visualizer" bgColor="tertiary.main" textColor="primary.main" height="500px">
                 
-                    {data !== null && <NetworkGraph data={data} />}
+                    {data !== null && <NetworkGraph data={data} searchTerm={searchTerm} />}
                     
                 
                 </StyledContainer>

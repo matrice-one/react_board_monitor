@@ -1,8 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import { useTheme } from '@mui/material/styles';
 
-const NetworkGraph = ({ data }) => {
+
+const NetworkGraph = ({ data, searchTerm }) => {
   const ref = useRef(null);
+  const theme = useTheme();
+
 
   useEffect(() => {
     if (data === null || !Array.isArray(data.links) || !Array.isArray(data.nodes)) {
@@ -99,8 +103,14 @@ const NetworkGraph = ({ data }) => {
     node
       .append("circle")
       .attr("r", (d) => 22)
-      .attr("fill", (d) => (d.type === "company" ? "red" : "blue"))
-      .call(drag(simulation))
+      .attr("fill", node => {
+        console.log(node.label, searchTerm, node.label.toLowerCase() === searchTerm.toLowerCase())
+        if (node.label.toLowerCase() === searchTerm.toLowerCase()) {
+          return 'blue';  // searched node color
+        } else {
+          return node.type === 'company' ? theme.palette.secondary.main : theme.palette.tertiary.main;  // company nodes are red, individual nodes are black
+        }
+      })      .call(drag(simulation))
       .on("mouseover", (event, d) => {
         tooltip.style("opacity", 1);
         tooltip.html(d.label);
