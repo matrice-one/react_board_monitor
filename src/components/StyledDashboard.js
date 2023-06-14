@@ -1,28 +1,35 @@
-import React,{useState,} from 'react';
+import React,{useState,useCallback, useEffect} from 'react';
 import { Typography, Grid, Container, Box } from '@mui/material';
 import DrawerAppBar from './Header';
 import SearchBar from './StyledSearchBar'
 import StyledContainer from './StyledContainer';
 import RowRadioButtonsGroup from './FilterRadio';
 import RangeSlider from './FilterSlider';
+import NumberSlider from './NumberSlider';
+import debounce from 'lodash.debounce';
 
 import NetworkGraph from './NetworkGraph';
 
-function StyledDashboard () {
-    const [data, setData] = useState(null);
-    const [searchTerm, setSearchTerm] = useState(null); // New state for the search term
+const StyledDashboard = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [data, setData] = useState(null);
+  const [maxNodes, setMaxNodes] = useState(50);
 
-  
-    const fetchData = async (searchQuery) => {
-      try {
-        const response = await fetch(`http://127.0.0.1:8000/api/network-data/?search_term=${searchQuery}`);
-        
-        const data = await response.json();
-        setData(data);
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      }
-    };
+  // We wrap fetchData in useCallback to prevent unnecessary re-renders and re-fetches
+  const fetchData = useCallback(debounce(async (searchQuery, maxNodes) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/network-data/?search_term=${searchQuery}&max_nodes=${maxNodes}`);
+      const data = await response.json();
+      setData(data);
+    } catch (error) {
+      console.error('Failed to fetch data:', error);
+    }
+  }, 300), []); // Adjust the debounce time to your need
+
+  // Fetch data when searchTerm or maxNodes changes
+  useEffect(() => {
+    fetchData(searchTerm, maxNodes);
+  }, [searchTerm, maxNodes, fetchData]);
 
     const onLaunchGraph = (query) => {
       setSearchTerm(query); // Set the search term state
@@ -31,7 +38,7 @@ function StyledDashboard () {
         // Clear the data state if it already has a value
         setData(null);
       }
-      fetchData(query);
+      fetchData(query, maxNodes);
     };
   
     
@@ -71,6 +78,9 @@ function StyledDashboard () {
         <Grid item xs={12}>
           <StyledContainer title="Control panel:" bgColor="tertiary.main" textColor='primary.main'>
            <RangeSlider/>
+           {/* <NumberSlider/> */}
+           <NumberSlider maxNodes={maxNodes} setMaxNodes={setMaxNodes} />
+
           </StyledContainer>
         </Grid>
       </Grid>
