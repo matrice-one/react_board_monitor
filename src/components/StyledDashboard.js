@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,} from 'react';
 import { Typography, Grid, Container, Box } from '@mui/material';
 import DrawerAppBar from './Header';
 import SearchBar from './StyledSearchBar'
@@ -10,15 +10,28 @@ import NetworkGraph from './NetworkGraph';
 
 function StyledDashboard () {
     const [data, setData] = useState(null);
+    const [searchTerm, setSearchTerm] = useState(null); // New state for the search term
+
   
     const fetchData = async (searchQuery) => {
       try {
-        const response = await fetch(`http://board-visualizer.ch/api/network-data/?search_term=${searchQuery}`);        
+        const response = await fetch(`http://127.0.0.1:8000/api/network-data/?search_term=${searchQuery}`);
+        
         const data = await response.json();
         setData(data);
       } catch (error) {
         console.error('Failed to fetch data:', error);
       }
+    };
+
+    const onLaunchGraph = (query) => {
+      setSearchTerm(query); // Set the search term state
+
+      if (data) {
+        // Clear the data state if it already has a value
+        setData(null);
+      }
+      fetchData(query);
     };
   
     
@@ -34,7 +47,7 @@ function StyledDashboard () {
 
         <Container>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { sm: '60%' }, margin: { xs: 0, sm: '0 auto' } }}>
-          <SearchBar inputMessage="Search for items..." buttonMessage="Start Search" onSearch={fetchData} />
+          <SearchBar inputMessage="Search for items..." buttonMessage="Start Search" onSearch={onLaunchGraph} />
         </Box>
       </Container>
 
@@ -43,7 +56,7 @@ function StyledDashboard () {
             <Grid item xs={12} lg={9}>
                 <StyledContainer title="Interactive visualizer" bgColor="tertiary.main" textColor="primary.main" height="500px">
                 
-                    {data !== null && <NetworkGraph data={data} />}
+                    {data !== null && <NetworkGraph data={data} searchTerm={searchTerm} />}
                     
                 
                 </StyledContainer>
