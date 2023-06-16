@@ -16,7 +16,8 @@ const StyledDashboard = () => {
   const [maxNodes, setMaxNodes] = useState(50);
 
   // We wrap fetchData in useCallback to prevent unnecessary re-renders and re-fetches
-  const fetchData = useCallback(debounce(async (searchQuery, maxNodes) => {
+// Define the function outside of useCallback
+  const fetchFunction = async (searchQuery, maxNodes) => {
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/network-data/?search_term=${searchQuery}&max_nodes=${maxNodes}`);
       const data = await response.json();
@@ -24,7 +25,13 @@ const StyledDashboard = () => {
     } catch (error) {
       console.error('Failed to fetch data:', error);
     }
-  }, 300), []); // Adjust the debounce time to your need
+  };
+
+  // Debounce the function
+  const debouncedFetch = debounce(fetchFunction, 300);
+
+  // Use useCallback to ensure that the function does not change across re-renders
+  const fetchData = useCallback(debouncedFetch, [debouncedFetch]);
 
   // Fetch data when searchTerm or maxNodes changes
   useEffect(() => {
