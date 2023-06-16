@@ -1,29 +1,29 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { TextField, InputAdornment, Button, Box } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import debounce from 'lodash.debounce';
 
-
 const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
   const [search, setSearch] = useState('');
-  const [selectedItem, setSelectedItem] = useState(''); // New state to store selected item
   const [suggestions, setSuggestions] = useState([]);
 
-  const fetchSuggestions = async (query) => {
-    const response = await fetch(`http://board-visualizer.ch/api/companies/?query=${query}`);
+  const fetchSuggestions = useCallback(async (query) => {
+    const response = await fetch(`http://127.0.0.1:8000/api/companies/?query=${query}`);
     const data = await response.json();
     setSuggestions(data);
-  };
-  
-  const debouncedFetchSuggestions = useRef(debounce(fetchSuggestions, 300));
+  }, []);
+
+  const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
+
+  const memoizedFetchSuggestions = useCallback(debouncedFetchSuggestions, [debouncedFetchSuggestions]);
   
   useEffect(() => {
     if (search) {
-      debouncedFetchSuggestions.current(search);
+      memoizedFetchSuggestions(search);
     } else {
       setSuggestions([]);
     }
-  }, [search]);
+  }, [search, memoizedFetchSuggestions]);
 
   const handleInputChange = (event, value, reason) => {
     if (reason === 'input') {
@@ -32,7 +32,7 @@ const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
   };
 
   const handleSearch = () => {
-    onSearch(selectedItem);
+    onSearch(search);
   };
 
   return (
@@ -40,9 +40,6 @@ const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
       <Autocomplete
         freeSolo
         options={suggestions.map((option) => option.name)}
-        onChange={(event, newValue) => {
-          setSelectedItem(newValue); // Store the selected item when an item is selected from the dropdown
-        }}
         renderInput={(params) => (
           <TextField 
             {...params} 

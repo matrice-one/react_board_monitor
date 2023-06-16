@@ -5,6 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import LogoBlack from '../media/images/logo.png';  // Replace this path with the actual path to your image
 import { Link } from 'react-router-dom';
 
+
 export default function NavBar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   
