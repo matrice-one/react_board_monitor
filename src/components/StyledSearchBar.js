@@ -8,20 +8,22 @@ const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
   const [suggestions, setSuggestions] = useState([]);
 
   const fetchSuggestions = useCallback(async (query) => {
-    const response = await fetch(`http://board-visualizer/api/companies/?query=${query}`);
+    const response = await fetch(`http://127.0.0.1:8000/api/companies/?query=${query}`);
     const data = await response.json();
     setSuggestions(data);
   }, []);
 
-  const debouncedFetchSuggestions = useCallback(debounce(fetchSuggestions, 300), [fetchSuggestions]);
+  const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
 
+  const memoizedFetchSuggestions = useCallback(debouncedFetchSuggestions, [debouncedFetchSuggestions]);
+  
   useEffect(() => {
     if (search) {
-      debouncedFetchSuggestions(search);
+      memoizedFetchSuggestions(search);
     } else {
       setSuggestions([]);
     }
-  }, [search, debouncedFetchSuggestions]);
+  }, [search, memoizedFetchSuggestions]);
 
   const handleInputChange = (event, value, reason) => {
     if (reason === 'input') {
