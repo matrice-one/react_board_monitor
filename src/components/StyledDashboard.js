@@ -27,11 +27,9 @@ const StyledDashboard = () => {
     }
   };
 
-  // Debounce the function
-  const debouncedFetch = debounce(fetchFunction, 300);
-
   // Use useCallback to ensure that the function does not change across re-renders
-  const fetchData = useCallback(debouncedFetch, [debouncedFetch]);
+  const fetchData = useCallback(debounce(fetchFunction, 300), []);
+
 
   // Fetch data when searchTerm or maxNodes changes
   useEffect(() => {

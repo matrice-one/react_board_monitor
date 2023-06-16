@@ -5,6 +5,7 @@ import debounce from 'lodash.debounce';
 
 const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
   const [search, setSearch] = useState('');
+  const [selectedItem, setSelectedItem] = useState(''); // New state to store selected item
   const [suggestions, setSuggestions] = useState([]);
 
   const fetchSuggestions = useCallback(async (query) => {
@@ -13,17 +14,16 @@ const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
     setSuggestions(data);
   }, []);
 
-  const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
+  const debouncedFetchSuggestions = useCallback(debounce(fetchSuggestions, 300), []);
 
-  const memoizedFetchSuggestions = useCallback(debouncedFetchSuggestions, [debouncedFetchSuggestions]);
   
   useEffect(() => {
     if (search) {
-      memoizedFetchSuggestions(search);
+      debouncedFetchSuggestions(search);
     } else {
       setSuggestions([]);
     }
-  }, [search, memoizedFetchSuggestions]);
+  }, [search, debouncedFetchSuggestions]);
 
   const handleInputChange = (event, value, reason) => {
     if (reason === 'input') {
@@ -32,7 +32,7 @@ const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
   };
 
   const handleSearch = () => {
-    onSearch(search);
+    onSearch(selectedItem);
   };
 
   return (
@@ -40,6 +40,9 @@ const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
       <Autocomplete
         freeSolo
         options={suggestions.map((option) => option.name)}
+        onChange={(event, newValue) => {
+          setSelectedItem(newValue); // Store the selected item when an item is selected from the dropdown
+        }}
         renderInput={(params) => (
           <TextField 
             {...params} 
