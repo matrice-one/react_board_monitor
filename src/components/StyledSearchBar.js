@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { TextField, InputAdornment, Button, Box } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import debounce from 'lodash.debounce';
@@ -13,8 +13,8 @@ const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
     const data = await response.json();
     setSuggestions(data);
   }, []);
-
-  const debouncedFetchSuggestions = useCallback(debounce(fetchSuggestions, 300), []);
+  
+  const debouncedFetchSuggestions = useMemo(() => debounce(fetchSuggestions, 300), [fetchSuggestions]);
 
   
   useEffect(() => {

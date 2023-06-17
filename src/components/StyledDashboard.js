@@ -28,7 +28,7 @@ const StyledDashboard = () => {
   };
 
   // Use useCallback to ensure that the function does not change across re-renders
-  const fetchData = useCallback(debounce(fetchFunction, 300), []);
+  const fetchData = useCallback(fetchFunction, []);
 
 
   // Fetch data when searchTerm or maxNodes changes
