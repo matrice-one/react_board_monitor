@@ -19,7 +19,7 @@ const StyledDashboard = () => {
 // Define the function outside of useCallback
   const fetchFunction = async (searchQuery, maxNodes) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/network-data/?search_term=${searchQuery}&max_nodes=${maxNodes}`);
+      const response = await fetch(`http://board-visualizer.ch/api/network-data/?search_term=${searchQuery}&max_nodes=${maxNodes}`);
       const data = await response.json();
       setData(data);
     } catch (error) {

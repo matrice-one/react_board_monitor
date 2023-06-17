@@ -7,7 +7,7 @@ const CompanyVisualizer = () => {
   const [data, setData] = useState(null);
 
   const fetchGraphData = async (query) => {
-    const response = await fetch(`http://127.0.0.1:8000/api/network-data/?search_term=${query}`);
+    const response = await fetch(`http://board-visualizer.ch/api/network-data/?search_term=${query}`);
     const json = await response.json();
     setData(json);
   };
