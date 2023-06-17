@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import StyledDashboard from './components/StyledDashboard';
-import PageDash from './components/PageDash';
 
 import './App.css';
 import MainContent from './components/MainContent';
@@ -60,7 +59,6 @@ function App() {
       <Routes>
         <Route path="/" element={<MainContent />} />
         <Route path="/dashboard" element={<StyledDashboard />} />
-        <Route path="/pagedash" element={<PageDash />} />
       </Routes>
     </div>
     </ThemeProvider>
