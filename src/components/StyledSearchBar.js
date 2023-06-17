@@ -9,7 +9,7 @@ const SearchBar = ({ inputMessage, buttonMessage, onSearch }) => {
   const [suggestions, setSuggestions] = useState([]);
 
   const fetchSuggestions = useCallback(async (query) => {
-    const response = await fetch(`http://127.0.0.1:8000/api/companies/?query=${query}`);
+    const response = await fetch(`http://board-visualizer.ch/api/companies/?query=${query}`);
     const data = await response.json();
     setSuggestions(data);
   }, []);
