@@ -6,8 +6,6 @@ import StyledContainer from './StyledContainer';
 import RowRadioButtonsGroup from './FilterRadio';
 import RangeSlider from './FilterSlider';
 import NumberSlider from './NumberSlider';
-import debounce from 'lodash.debounce';
-
 import NetworkGraph from './NetworkGraph';
 
 const StyledDashboard = () => {
