@@ -45,7 +45,6 @@ const NetworkGraph = ({ data, searchTerm }) => {
         
         word = words.pop()
         while (word) {
-          word = words.pop()
           line.push(word);
           tspan.text(line.join(" "));
           if (tspan.node().getComputedTextLength() > width) {
@@ -54,6 +53,7 @@ const NetworkGraph = ({ data, searchTerm }) => {
             line = [word];
             tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", `${++lineNumber * lineHeight + dy}em`).text(word);
           }
+          word = words.pop()
         }
       });
     }

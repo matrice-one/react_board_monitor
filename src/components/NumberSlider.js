@@ -1,5 +1,5 @@
 import React from 'react';
-import { Slider, Box } from '@mui/material';
+import { Slider, Box, Typography } from '@mui/material';
 
 function NumberSlider({ maxNodes, setMaxNodes }) {
   const handleChange = (event, newValue) => {
@@ -9,7 +9,7 @@ function NumberSlider({ maxNodes, setMaxNodes }) {
   return (
     <div>
     <Box sx={{ width: 250 }}>
-    <h2>Control Panel</h2>
+    <Typography variant="h4" component="div" align="left" fontWeight="bold">Number of nodes</Typography>
       <Slider
         value={maxNodes}
         onChange={handleChange}

@@ -25,7 +25,3 @@ const CompanyVisualizer = () => {
 };
 
 export default CompanyVisualizer;
-
-
-// // const response = await fetch(`http://127.0.0.1:8000/api/api/network-data/?search_term=${query}}`);
-// // const response = await fetch(`http://127.0.0.1:8000/api/companies/?query=${query}`);
