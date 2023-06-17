@@ -6,8 +6,6 @@ import StyledContainer from './StyledContainer';
 import RowRadioButtonsGroup from './FilterRadio';
 import RangeSlider from './FilterSlider';
 import NumberSlider from './NumberSlider';
-import debounce from 'lodash.debounce';
-
 import NetworkGraph from './NetworkGraph';
 
 const StyledDashboard = () => {
@@ -19,7 +17,7 @@ const StyledDashboard = () => {
 // Define the function outside of useCallback
   const fetchFunction = async (searchQuery, maxNodes) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/network-data/?search_term=${searchQuery}&max_nodes=${maxNodes}`);
+      const response = await fetch(`http://board-visualizer.ch/api/network-data/?search_term=${searchQuery}&max_nodes=${maxNodes}`);
       const data = await response.json();
       setData(data);
     } catch (error) {
@@ -28,7 +26,7 @@ const StyledDashboard = () => {
   };
 
   // Use useCallback to ensure that the function does not change across re-renders
-  const fetchData = useCallback(debounce(fetchFunction, 300), []);
+  const fetchData = useCallback(fetchFunction, []);
 
 
   // Fetch data when searchTerm or maxNodes changes
