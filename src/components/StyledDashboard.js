@@ -4,7 +4,6 @@ import DrawerAppBar from './Header';
 import SearchBar from './StyledSearchBar'
 import StyledContainer from './StyledContainer';
 import RowRadioButtonsGroup from './FilterRadio';
-import RangeSlider from './FilterSlider';
 import NumberSlider from './NumberSlider';
 import NetworkGraph from './NetworkGraph';
 
