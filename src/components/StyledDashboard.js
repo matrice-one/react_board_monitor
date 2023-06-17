@@ -80,8 +80,6 @@ const StyledDashboard = () => {
         </Grid>
         <Grid item xs={12}>
           <StyledContainer title="Control panel:" bgColor="tertiary.main" textColor='primary.main'>
-           <RangeSlider/>
-           {/* <NumberSlider/> */}
            <NumberSlider maxNodes={maxNodes} setMaxNodes={setMaxNodes} />
 
           </StyledContainer>
