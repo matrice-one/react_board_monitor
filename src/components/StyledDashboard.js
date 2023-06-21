@@ -24,14 +24,11 @@ const StyledDashboard = () => {
     }
   };
 
-  // Use useCallback to ensure that the function does not change across re-renders
-  const fetchData = useCallback(fetchFunction, []);
-
 
   // Fetch data when searchTerm or maxNodes changes
   useEffect(() => {
-    fetchData(searchTerm, maxNodes);
-  }, [searchTerm, maxNodes, fetchData]);
+    fetchFunction(searchTerm, maxNodes);
+  }, [searchTerm, maxNodes]);
 
     const onLaunchGraph = (query) => {
       setSearchTerm(query); // Set the search term state
@@ -40,7 +37,6 @@ const StyledDashboard = () => {
         // Clear the data state if it already has a value
         setData(null);
       }
-      fetchData(query, maxNodes);
     };
   
     
