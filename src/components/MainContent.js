@@ -4,6 +4,7 @@ import Banner from './Banner'
 import SectionTitle from './SectionTitle';
 import { Grid, Box } from '@mui/material';
 import StyledContainer from './StyledContainer';
+import Footer from './Footer';
 
 const MainContent = () => {
   return (
@@ -49,7 +50,7 @@ const MainContent = () => {
       {/* Add more Grid items as needed... */}
     </Grid>
     {/* </Container> */}
-
+    <Footer/>
 
     </Box>
 
