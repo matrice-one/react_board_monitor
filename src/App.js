@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ReactGA from 'react-ga';
+import { GA4React } from 'ga-4-react';
 import { Route, Routes } from 'react-router-dom';
 import StyledDashboard from './components/StyledDashboard';
 
@@ -12,6 +12,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import AboutUs from './components/AboutUs';
 
+const ga4 = new GA4React("G-6JGY49J0W2");
 
 const theme = createTheme({
   palette: {
@@ -54,10 +55,13 @@ const theme = createTheme({
 
 
 function App() {
-  ReactGA.initialize('G-6JGY49J0W2');
   useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search);
-  }, []);
+    ga4.initialize().then((ga4) => {
+      ga4.pageview(window.location.pathname + window.location.search);
+    }, (err) => {
+      console.error("Analytics failure", err);
+    });
+  });
 
   return (
     <ThemeProvider theme={theme}>
