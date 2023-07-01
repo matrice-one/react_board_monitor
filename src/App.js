@@ -10,6 +10,7 @@ import MainContent from './components/MainContent';
 import './components/GlobalStyles.module.css'; // adjust path as needed
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
+import AboutUs from './components/AboutUs';
 
 
 const theme = createTheme({
@@ -66,6 +67,8 @@ function App() {
       <Routes>
         <Route path="/" element={<MainContent />} />
         <Route path="/dashboard" element={<StyledDashboard />} />
+        <Route path="/about-us" element={<AboutUs />} />
+
       </Routes>
     </div>
     </ThemeProvider>
