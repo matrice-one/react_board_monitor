@@ -1,8 +1,6 @@
 import React from 'react';
 import NavBar from './Header';
-import SectionTitle from './SectionTitle';
-import { Grid, Box, Typography } from '@mui/material';
-import StyledContainer from './StyledContainer';
+import {  Box, Typography } from '@mui/material';
 
 const AboutUs = () => {
     return (
