@@ -23,7 +23,8 @@ jobs:
     - name: Clean npm cache
       run: npm cache clean --force
     - run: npm ci
-    - run: npm run build --if-present
+    - name: Build
+      run: PUBLIC_URL=/bhge npm run build
     - uses: actions/upload-artifact@v2
       with:
         name: react-build
