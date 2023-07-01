@@ -1,4 +1,4 @@
-import React,{useState,useCallback, useEffect} from 'react';
+import React,{useState, useEffect} from 'react';
 import { Typography, Grid, Container, Box } from '@mui/material';
 import DrawerAppBar from './Header';
 import SearchBar from './StyledSearchBar'
